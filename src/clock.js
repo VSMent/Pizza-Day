@@ -1,23 +1,21 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 
-export class Clock extends React.Component {
-    state = {time: new Date()};
-
-    tick = () => this.setState({time: new Date()});
-
-    componentDidMount() {
-        this.timer = setInterval(() => this.tick(), 1000);
+export const Clock = () => {
+    const [time, setTime] = useState(new Date());
+    const tick = () => {
+        setTime(new Date());
+        console.log('Tick');
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
+    useEffect(() => {
+        const timer = setInterval(() => tick(), 1000);
 
-    render() {
-        return (
-            <Fragment>
-                <div>Time: {this.state.time.toLocaleTimeString()}</div>
-            </Fragment>
-        );
-    }
-}
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <Fragment>
+            <div>Time: {time.toLocaleTimeString()}</div>
+        </Fragment>
+    );
+};
