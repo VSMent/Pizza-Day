@@ -4,7 +4,7 @@ export const Clock = () => {
     const [time, setTime] = useState(new Date());
     const tick = () => {
         setTime(new Date());
-        console.log('Tick');
+        // console.log('Tick');
     }
 
     useEffect(() => {

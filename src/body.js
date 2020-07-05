@@ -1,12 +1,15 @@
 import React, {Fragment} from "react";
 import T from 'prop-types';
+import {logProps} from "./hoc";
 
-export const Body = ({todoList}) => (
+const BodyComponent = ({todoList}) => (
     <Fragment>
         {todoList.map(todo => <div key={todo}>{todo}</div>)}
     </Fragment>
 );
 
-Body.defaultProps = {todoList: []};
-Body.displayName = "TODO LIST";
-Body.propTypes = {todoList: T.arrayOf(T.string)};
+BodyComponent.defaultProps = {todoList: []};
+BodyComponent.displayName = "TODO LIST";
+BodyComponent.propTypes = {todoList: T.arrayOf(T.string)};
+
+export const Body = logProps(BodyComponent);
