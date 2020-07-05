@@ -1,27 +1,20 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 
-export class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {inputValue: ""};
-    }
+export const Header = ({children, onAdd}) => {
+    const [inputValue, setInputValue] = useState('');
+    const onChange = event => setInputValue(event.target.value);
+    const onClick = () => {
+        onAdd(inputValue);
+        setInputValue('');
+    };
 
-    onChange = event => this.setState({inputValue: event.target.value})
-
-    onClick = () => {
-        this.props.onAdd(this.state.inputValue);
-        this.setState({inputValue: ""});
-    }
-
-    render() {
-        return (
-            <Fragment>
-                <h1 className="header">{this.props.title}</h1>
-                <div>
-                    <input type="text" value={this.state.inputValue} onChange={this.onChange}/>
-                    <button onClick={this.onClick}>Add</button>
-                </div>
-            </Fragment>
-        );
-    }
-}
+    return (
+        <Fragment>
+            <h1 className="header">{children}</h1>
+            <div>
+                <input type="text" value={inputValue} onChange={onChange}/>
+                <button onClick={onClick}>Add</button>
+            </div>
+        </Fragment>
+    );
+};
