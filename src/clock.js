@@ -16,7 +16,6 @@ export class Clock extends React.Component {
     render() {
         return (
             <Fragment>
-                <div>It is clock</div>
                 <div>Time: {this.state.time.toLocaleTimeString()}</div>
             </Fragment>
         );

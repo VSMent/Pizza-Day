@@ -43,16 +43,23 @@ Body.defaultProps = {todoList: []};
 Body.displayName = "TODO LIST";
 
 class App extends React.Component {
-    state = {todos: ['1-st', '2-nd', '3-rd']};
+    state = {todos: ['1-st', '2-nd', '3-rd'], showClock: true};
 
     onAdd = todo => this.setState({todos: [...this.state.todos, todo]});
 
+    onSwitch = () => this.setState({showClock: !this.state.showClock});
+
     render() {
+        const {todos, showClock} = this.state;
+
         return (
             <div className="app">
-                <Clock/>
+                <button onClick={this.onSwitch}>
+                    Turn Clock {showClock ? 'Off' : 'On'}
+                </button>
+                {showClock && <Clock/>}
                 <Header onAdd={this.onAdd} title="This is  TODO list"/>
-                <Body todoList={this.state.todos}/>
+                <Body todoList={todos}/>
             </div>
         )
     }
