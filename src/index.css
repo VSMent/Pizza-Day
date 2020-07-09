@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
 }
+
+.application {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.text {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.toDoItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.toDoList {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
