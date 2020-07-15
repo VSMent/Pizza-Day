@@ -13,6 +13,10 @@ export const useTodosHook = () => {
     type: TODOS_ACTIONS.SWITCH,
     _id
   });
+  const onEdit = newTodo => dispatch({
+    type: TODOS_ACTIONS.EDIT,
+    newTodo
+  });
 
   const onRemove = _id => dispatch({
     type: TODOS_ACTIONS.REMOVE,
@@ -27,6 +31,7 @@ export const useTodosHook = () => {
     todos,
     onAdd,
     onSwitch,
+    onEdit,
     onRemove
   }
 };

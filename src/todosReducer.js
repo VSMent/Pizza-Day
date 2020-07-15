@@ -3,6 +3,7 @@ import {v4 as uuidv4} from "uuid";
 export const TODOS_ACTIONS = {
   ADD: 'add',
   SWITCH: 'switch',
+  EDIT: 'edit',
   REMOVE: 'remove'
 };
 
@@ -23,6 +24,12 @@ export const todosReducer = (todos, action) => {
       return todos.map(
         todo => action._id === todo._id
           ? {...todo, completed: !todo.completed}
+          : todo
+      );
+    case TODOS_ACTIONS.EDIT:
+      return todos.map(
+        todo => action.newTodo._id === todo._id
+          ? action.newTodo
           : todo
       );
     case TODOS_ACTIONS.REMOVE:

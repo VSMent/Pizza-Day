@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import T from 'prop-types';
 
-export const ToDoInput = ({onAdd}) => {
-  const [value, setValue] = useState('');
+export const ToDoInput = ({onAdd, initialValue}) => {
+  const [value, setValue] = useState(initialValue);
 
   const onChange = e => setValue(e.target.value);
   const onSubmit = e => {
@@ -20,5 +20,10 @@ export const ToDoInput = ({onAdd}) => {
 };
 
 ToDoInput.propTypes = {
-  onAdd: T.func.isRequired
+  onAdd: T.func.isRequired,
+  initialValue: T.string
 };
+
+ToDoInput.defaultProps = {
+  initialValue: ''
+}

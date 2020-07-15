@@ -6,7 +6,13 @@ import {useTodosHook} from "./useTodosHook";
 
 export const App = () => {
 
-  const {todos, onAdd, onSwitch, onRemove} = useTodosHook();
+  const {
+    todos,
+    onAdd,
+    onSwitch,
+    onEdit,
+    onRemove
+  } = useTodosHook();
 
   return (
     <div className="application">
@@ -16,8 +22,7 @@ export const App = () => {
         {todos.map(
           todo =>
             <ToDoItem
-              key={todo._id}
-              {...{todo, onSwitch, onRemove}}/>
+              {...{key: todo._id, todo, onSwitch, onEdit, onRemove}}/>
         )}
       </div>
     </div>
