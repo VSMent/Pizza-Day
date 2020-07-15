@@ -1,32 +1,31 @@
-import React, {useState} from "react";
-import {v4 as uuidv4} from 'uuid';
+import React, {useEffect, useReducer} from "react";
 import {Text} from "./Text";
 import {ToDoInput} from "./ToDoInput";
 import {ToDoItem} from "./ToDoItem";
+import {initialState, TODOS_ACTIONS, todosReducer} from "./todosReducer";
 
 export const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, dispatch] = useReducer(todosReducer, initialState());
 
-  const onAdd = text => setTodos([
-    ...todos,
-    {
-      _id: uuidv4(),
-      text,
-      completed: false
-    }
-  ]);
+  const onAdd = text => dispatch({
+    type: TODOS_ACTIONS.ADD,
+    text
+  });
 
-  const onSwitch = _id => {
-    setTodos(
-      todos.map(todo => _id === todo._id ? {...todo, completed: !todo.completed} : todo)
-    )
-  }
+  const onSwitch = _id => dispatch({
+    type: TODOS_ACTIONS.SWITCH,
+    _id
+  });
 
-  const onRemove = _id => {
-    setTodos(
-      todos.filter(todo => _id !== todo._id)
-    )
-  }
+  const onRemove = _id => dispatch({
+    type: TODOS_ACTIONS.REMOVE,
+    _id
+  });
+
+  useEffect(() => {
+    const todosString = JSON.stringify(todos);
+    localStorage.setItem('todos', todosString);
+  }, [todos]);
 
   return (
     <div className="application">

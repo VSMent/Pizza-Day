@@ -30,3 +30,7 @@ src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 src/Text.js,7\f\7f2f20d77dc821492a4dfabf5e5ba15cbefbd557
 ?
 src/ToDoItem.js,a\9\a97735b8a0b046a8340741fbf61bd4928e480ec6
+H
+src/withCheckedStyles.js,9\a\9a6160bd6567f5a95c5f8dd138191b0657a0ff32
+C
+src/todosReducer.js,0\f\0fe16f66e4f1ea602d245e5132f4ba228a95c8e3
