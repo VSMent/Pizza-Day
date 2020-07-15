@@ -3,6 +3,7 @@ import {Text} from "./Text";
 import {ToDoInput} from "./ToDoInput";
 import {ToDoItem} from "./ToDoItem";
 import {useTodosHook} from "./useTodosHook";
+import {TodosContext} from "./TodosContext";
 
 export const App = () => {
 
@@ -18,13 +19,15 @@ export const App = () => {
     <div className="application">
       <Text size="2em">Todos</Text>
       <ToDoInput onAdd={onAdd}/>
-      <div className='toDoList'>
-        {todos.map(
-          todo =>
-            <ToDoItem
-              {...{key: todo._id, todo, onSwitch, onEdit, onRemove}}/>
-        )}
-      </div>
+      <TodosContext.Provider value={todos}>
+        <div className='toDoList'>
+          {todos.map(
+            todo =>
+              <ToDoItem
+                {...{key: todo._id, todo, onSwitch, onEdit, onRemove}}/>
+          )}
+        </div>
+      </TodosContext.Provider>
     </div>
   );
 }
