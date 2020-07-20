@@ -1,5 +1,9 @@
 export const routes = {
   HOME: "/",
   PRODUCTS: "/products",
-  ABOUT: "/about"
+  PRODUCTS_NEW: "/products/new",
+  PRODUCTS_OLD: "/products/old",
+  ABOUT: "/about",
+  NOT_FOUND: "/not-found",
+  LOGIN: "/login"
 }
