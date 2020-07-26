@@ -1,10 +1,13 @@
 const express = require('express');
+const {GraphQLDateTime} = require('graphql-iso-date')
 const {
   ApolloServer,
   gql
 } = require('apollo-server-express');
 
 const typeDefs = gql`
+    scalar DateTime
+
     type Query{
         hello: String
         currentDate: String
@@ -18,7 +21,8 @@ const typeDefs = gql`
         title: String!
         description: String!
         subDescription: String!
-        createdBy: ID!
+        createdBy: ID
+        createdAt: DateTime
         author: User
     }
 
@@ -46,6 +50,7 @@ const questions = [
     title: 'Q #1',
     description: 'Laboris id dolore id aliqua aute elit amet ut incididunt dolore incididunt ex do non ut.',
     createdBy: 'u1',
+    createdAt: '2020-07-26 13:40:05.091Z',
   },
   {
     _id: 'q1',
@@ -70,6 +75,7 @@ const resolvers = {
     fullName: ({profile}) => profile.fullName,
     questions: ({_id}) => questions.filter(q => q.createdBy === _id),
   },
+  DateTime: GraphQLDateTime,
 };
 const schema = new ApolloServer({
   typeDefs,
