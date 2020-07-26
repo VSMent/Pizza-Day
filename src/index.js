@@ -1,9 +1,9 @@
 const express = require('express');
-const {GraphQLDateTime} = require('graphql-iso-date')
-const {
-  ApolloServer,
-  gql
-} = require('apollo-server-express');
+const {GraphQLDateTime} = require('graphql-iso-date');
+const {ApolloServer, gql} = require('apollo-server-express');
+const {Question} = require('./question/modal');
+const {User} = require('./user/modal');
+require('./db');
 
 const typeDefs = gql`
     scalar DateTime
@@ -24,6 +24,14 @@ const typeDefs = gql`
         createdBy: ID
         createdAt: DateTime
         author: User
+        tags: [Tags]
+    }
+    enum Tags{
+        JS
+        React
+        GraphQL
+        Mongo
+        NodeJS
     }
 
     type User{
@@ -34,46 +42,21 @@ const typeDefs = gql`
     }
 `;
 
-const users = [
-  {
-    _id: 'u1',
-    profile: {
-      fullName: 'User #1',
-    },
-    email: 'ema@il.com',
-  },
-];
-
-const questions = [
-  {
-    _id: 'q1',
-    title: 'Q #1',
-    description: 'Laboris id dolore id aliqua aute elit amet ut incididunt dolore incididunt ex do non ut.',
-    createdBy: 'u1',
-    createdAt: '2020-07-26 13:40:05.091Z',
-  },
-  {
-    _id: 'q1',
-    title: 'Q #2',
-    description: 'Labore qui consectetur qui culpa minim incididunt sunt excepteur officia enim in.',
-  }
-];
-
 const resolvers = {
   Query: {
     hello: () => "Hello world!",
     currentDate: () => new Date().toLocaleTimeString(),
-    questions: () => questions,
-    question: (_, args) => questions.find(q => q._id === args._id),
-    users: () => users,
+    questions: () => Question.find({}, null, {limit: 20}),
+    question: (_, {_id}) => Question.findById(_id),
+    users: () => User.find({}, null, {limit: 20}),
   },
   Question: {
     subDescription: (parent) => parent.description.substr(0, 10),
-    author: ({createdBy}) => users.find(u => u._id === createdBy),
+    author: ({createdBy}) => User.findById(createdBy),
   },
   User: {
     fullName: ({profile}) => profile.fullName,
-    questions: ({_id}) => questions.filter(q => q.createdBy === _id),
+    questions: ({_id}) => Question.find({createdBy: _id}),
   },
   DateTime: GraphQLDateTime,
 };
