@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 require('./src/mongoDb');
+const api = require('./src/api');
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/v1/', ()=>{});
+app.use('/api/v1/', api.initRoutes());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -26,7 +27,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({ error: err });
 });
 
 module.exports = app;
