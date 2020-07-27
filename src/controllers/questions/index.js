@@ -1,8 +1,9 @@
 const {Router} = require('express');
 
-module.exports = () => {
+const {list} = require('./list')
+
+module.exports = (models) => {
   const api = Router();
-  return api.get('/', (req, res, next) => {
-    console.log("got questions");
-  });
+  api.get('/', list(models));
+  return api;
 };
