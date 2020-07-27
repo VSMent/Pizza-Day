@@ -2,12 +2,12 @@ const {spawn} = require('child_process');
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 
-gulp.task('api', async () =>  nodemon({
+gulp.task('api', async () => nodemon({
   script: './bin/www',
   watch: ['./src']
 }));
 
-gulp.task('db', (callback) => {
+gulp.task('db', async (callback) => {
   const dbProcess = spawn('mongod', ['--dbpath', 'data/db', '--port', '3001']);
   dbProcess.on('data', console.log);
   dbProcess.on('error', e => console.log(e));
