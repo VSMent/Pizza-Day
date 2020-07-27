@@ -2,9 +2,9 @@ const express = require('express');
 const {errorHandler} = require('../middleware/error-handler');
 
 // models
-const {Questions} = require('../models/questions');
+const {Question} = require('../models/question');
 
-const models = {Questions};
+const models = {Question};
 
 // controllers
 const questions = require('../controllers/questions');
