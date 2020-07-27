@@ -2,7 +2,7 @@ const {spawn} = require('child_process');
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 
-gulp.task('api', () => nodemon({
+gulp.task('api', async () =>  nodemon({
   script: './bin/www',
   watch: ['./src']
 }));
